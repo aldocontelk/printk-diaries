@@ -1,0 +1,59 @@
+baseURL = 'https://aldocontelk.github.io/printk-diaries/'
+locale = 'en-US'
+title = 'Printk Diaries'
+theme = 'FixIt'
+
+[menu]
+  [[menu.main]]
+    identifier = "linux-kernel-hacking"
+    name = "Linux Kernel Hacking"
+    url = "/linux_kernel_hacking/"
+    weight = 10
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 20
+  [[menu.main]]
+    identifier = "contact"
+    name = "Contact Me"
+    url = "/contact/"
+    weight = 25
+  [[menu.main]]
+    identifier = "categories"
+    name = "Categories"
+    url = "/categories/"
+    weight = 30
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 40
+
+[params]
+  version = "0.4.X"
+  [params.header]
+    [params.header.title]
+      name = "Printk Diaries"
+  [params.author]
+    name = "Aldo Conte"
+    link = "https://github.com/aldocontelk"
+    email = "aldocontelk@gmail.com"
+    avatar = ""
+  [params.page]
+    [params.page.toc]
+      enable = true
+      position = "right"
+      keepStatic = false
+      auto = true
+      startLevel = 2
+      endLevel = 6
+  [params.cookieconsent]
+    enable = false
+  
+[markup]
+  _merge = "shallow"
+[outputs]
+  _merge = "shallow"
+[taxonomies]
+  _merge = "shallow"

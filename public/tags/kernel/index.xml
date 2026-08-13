@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kernel - Tag - Printk Diaries</title>
+    <link>http://localhost:1313/printk-diaries/tags/kernel/</link>
+    <description>Printk Diaries</description>
+    <generator>Hugo 0.162.1 &amp; FixIt v0.4.5</generator>
+    <language>en-US</language>
+    <managingEditor>aldocontelk@gmail.com (Aldo Conte)</managingEditor>
+    <webMaster>aldocontelk@gmail.com (Aldo Conte)</webMaster>
+    <lastBuildDate>Wed, 01 Jul 2026 17:22:49 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/printk-diaries/tags/kernel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My LKMP Experience: First Steps</title>
+      <link>http://localhost:1313/printk-diaries/linux_kernel_hacking/lkmp_experience/</link>
+      <pubDate>Wed, 01 Jul 2026 17:22:49 +0200</pubDate><author>aldocontelk@gmail.com (Aldo Conte)</author>
+      <guid>http://localhost:1313/printk-diaries/linux_kernel_hacking/lkmp_experience/</guid>
+      <category domain="http://localhost:1313/printk-diaries/categories/mentorship/">Mentorship</category>
+      <description>&lt;p&gt;My experience in the &lt;a href=&#34;https://mentorship.lfx.linuxfoundation.org/project/53378ec5-48d7-4c49-a01f-8cbd3948db3d&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Linux kernel Spring Unpaid 2026&lt;/a&gt;, and the beginning of my journey as a Linux kernel developer.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
