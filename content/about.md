@@ -14,9 +14,8 @@ I have another big passion, which is mountains and all the outdoor activities th
 
 
 
-**Printk Diaries** is the logbook where i write down what i learn along the way: kernel patches and the lessons behind them, driver development, debugging techniques, testing tricks with and without hardware, and everything that sits between electronics and the kernel.
+**Printk Diaries** is the logbook where I write down what I learn along the way: kernel patches and the lessons behind them, driver development, debugging techniques, testing tricks with and without hardware, and everything that sits between electronics and the kernel.
 Here, though, expect to read about just about anything that I'm passionate about and that's worth sharing.
-
 
 
 
