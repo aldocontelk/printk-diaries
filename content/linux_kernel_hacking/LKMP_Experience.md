@@ -1,7 +1,7 @@
 ---
 title: "My Linux Kernel Mentorship Program experience: a fantastic trip"
 date: 2026-07-01T17:22:49+02:00
-draft: false
+draft: true
 type: posts
 toc: true
 tags:
