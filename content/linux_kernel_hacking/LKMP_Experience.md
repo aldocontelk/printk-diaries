@@ -1,7 +1,7 @@
 ---
 title: "My Linux Kernel Mentorship Program experience: a fantastic trip"
 date: 2026-07-01T17:22:49+02:00
-draft: true
+draft: false
 type: posts
 toc: true
 tags:
@@ -44,9 +44,9 @@ The recommended commitment for this track was 20 hours a week, and starting from
 
 The first online meeting took place a few days after the admission. The maintainer Shuah Khan and the developer Brigham Campbell introduced themselves as the mentors of this LKMP Spring 2026. During this first meeting, a few important points immediately reset my expectations:
 
-- The Linux Kernel Mentorship Program is not like a university course. You are not led through a predefined study path. I would describe it more as an experience where, if you commit and ask the right questions, the mentors will give you excellent hints and advice, pointers within the whole space of possible solutions, so you don't waste time on dead ends and get straight to the point. But there is an initial step: you have to work hard to reach the point where you can ask the right questions. This will become clearer later...
+- The Linux Kernel Mentorship Program is not like a university course. You are not led through a predefined study path. I would describe it more as an experience where, if you commit and ask the right questions, the mentors will give you excellent hints and advice, pointers within the whole space of possible solutions, so you don't waste time on dead ends and get straight to the point. But there is an initial step: you have to work hard to reach the point where you can ask the right questions.
 
-- The other mentees are a resource to make the most of. Collaborating, asking, comparing notes: i think it's essential, especially at the beginning, when you can easily feel lost in front of the immense range of possibilities you face when you first open the Linux kernel source.
+- The other mentees are a resource to make the most of. Collaborating, asking, comparing notes: I think it's essential, especially at the beginning, when you can easily feel lost in front of the immense range of possibilities you face when you first open the Linux kernel source.
 
 ## Choosing a subsystem
 
@@ -60,7 +60,7 @@ So I told Shuah and Brigham that I was stuck, and they reassured me: I was exact
 
 ## My first patch: even a comment counts
 
-Following the mentors hint to always work on the `mainline` or `linux-next` branch, i ran:
+Following the mentors' hint to always work on the `mainline` or `linux-next` branch, I ran:
 
 ```bash
 make htmldocs 2>&1 | grep WARNING
@@ -68,7 +68,7 @@ make htmldocs 2>&1 | grep WARNING
 
 That command led me to my first patch opportunity, in the USB Type-C subsystem (*include/linux/usb/typec_altmode.h*): two fields of `struct typec_altmode`, `priority` and `mode_selection`, were missing their kernel-doc entries, causing warnings when building the documentation.
 
-A documentation patch may sound trivial, but it made me realize right away that even a "simple" comment can be a valuable contribution. To write those few lines i had to use `cscope` to trace where the two fields were actually used and deduce their real meaning. Along the way i discovered the concept of USB-C "alternate modes" and how the `priority` field drives the automatic alternate mode selection process. This patch was also my first complete round of the kernel submission process: configuring my git identity,`git commit -s`, `git format-patch`, the `checkpatch.pl` script, `get_maintainer.pl` to find the right recipients, and finally `git send-email`. It's also when i settled on a workflow that kept all my subsequent work in order: one dedicated git branch per patch, named like *patch/subsystem_name/short_description*, so every piece of work stays isolated and easy to rework when reviews come in.
+A documentation patch may sound trivial, but it made me realize right away that even a "simple" comment can be a valuable contribution. To write those few lines I had to use `cscope` to trace where the two fields were actually used and deduce their real meaning. Along the way I discovered the concept of USB-C "alternate modes" and how the `priority` field drives the automatic alternate mode selection process. This patch was also my first complete round of the kernel submission process: configuring my git identity, `git commit -s`, `git format-patch`, the `checkpatch.pl` script, `get_maintainer.pl` to find the right recipients, and finally `git send-email`. It's also when I settled on a workflow that kept all my subsequent work in order: one dedicated git branch per patch, named like *patch/subsystem_name/short_description*, so every piece of work stays isolated and easy to rework when reviews come in.
 
 
 
@@ -94,7 +94,7 @@ git send-email --to=... --cc=... ../patch_typec/0001-*.patch
 
 ## My second patch: static analysis and my first reviews
 
-Encouraged by that first submission, i followed another piece of advice from the weekly office hours: static analysis is a great source of beginner-friendly patches. So i enabled every driver as a module and built the whole kernel treating warnings seriously:
+Encouraged by that first submission, I followed another piece of advice from the weekly office hours: static analysis is a great source of beginner-friendly patches. So I enabled every driver as a module and built the whole kernel treating warnings seriously:
 
 ```bash
 make allmodconfig
@@ -108,9 +108,9 @@ But the fix itself is not what I remember most about this patch: it was my first
 
 Lesson learned: before changing a line of kernel code, look at how the same pattern is handled elsewhere, because there is often an established "standard" way to do it.
 
-On the practical side, i learned how to produce a v2 of a patch, reworking the commit with `git commit --amend` and regenerating it with `git format-patch`. And it started to dawn on me that submitting a patch is only half of the work: collaborating with the community is the other half.
+On the practical side, I learned how to produce a v2 of a patch, reworking the commit with `git commit --amend` and regenerating it with `git format-patch`. And it started to dawn on me that submitting a patch is only half of the work: collaborating with the community is the other half.
 
-This is the v2 cycle i learned here and reused for every review round afterwards:
+This is the v2 cycle I learned here and reused for every review round afterwards:
 
 ```bash
 # v2 gets its own branch: v1 stays intact, nothing is ever destroyed
@@ -123,21 +123,21 @@ git send-email  --to=... --cc=... ../patch_p4/v2-*.patch
 
 ## Landing in IIO: my first real bug fix
 
-At this point i had to commit to a subsystem for the rest of the mentorship, and given my electronics background, the IIO seemed to be  the most interesting. Sensors, ADCs and especially light sensors were home turf for me and RGB color sensors intrigued me the most.
+By then IIO was where I had settled, and it was time to find real work there. Sensors, ADCs and especially light sensors were home turf for me, and RGB color sensors intrigued me the most.
 
-The office hours gave me a method here too: read the subsystem's recent history to spot the "hot" topics being worked on. So i started digging with:
+The office hours gave me a method here too: read the subsystem's recent history to spot the "hot" topics being worked on. So I started digging with:
 
 ```bash
 git log --oneline --no-merges drivers/iio/
 ```
 
-Combining what i found there with Javier's articles, i ended up studying one of the light sensor drivers, *veml6070.c*, very closely. And there it was: a function that computed the sensor value correctly and then returned 0 instead of the computed result, so userspace always read 0. I had just done my first "code inspection", and what i had found was a real bug.
+Combining what I found there with Javier's articles, I ended up studying one of the light sensor drivers, *veml6070.c*, very closely. And there it was: a function that computed the sensor value correctly and then returned 0 instead of the computed result, so userspace always read 0. I had just done my first "code inspection", and what I had found was a real bug.
 
 This little patch taught me a surprising amount:
 
 - `git blame`, to trace which commit introduced the bug, which is what you need for the `Fixes:` tag;
-- that a patch with a `Fixes:` tag gets backported to the stable trees: some time later i received the mail from [Greg Kroah-Hartman](https://en.wikipedia.org/wiki/Greg_Kroah-Hartman) confirming the patch had been merged into the right list of stable kernels;
-- what a good bug-fix commit message looks like. Shuah taught me to always state how i found the bug, whether i tested it on real hardware, and how. In this case i didn't have the hardware, so i said so explicitly; the fix was obvious enough that the maintainer merged it anyway.
+- that a patch with a `Fixes:` tag gets backported to the stable trees: some time later I received the mail from [Greg Kroah-Hartman](https://en.wikipedia.org/wiki/Greg_Kroah-Hartman) confirming the patch had been merged into the right list of stable kernels;
+- what a good bug-fix commit message looks like. Shuah taught me to always state how I found the bug, whether I tested it on real hardware, and how. In this case I didn't have the hardware, so I said so explicitly; the fix was obvious enough that the maintainer merged it anyway.
 
 The bug-hunting commands behind this patch:
 
@@ -154,13 +154,13 @@ git log -1 --pretty=reference <sha>
 
 ## cm3323: my first series, and testing without the hardware
 
-To learn the typical structure of an IIO driver i picked a fairly complete one: the CM3323 color sensor driver. While reviewing the code i found another bug, similar in spirit to the previous one: `data->reg_conf` was assigned the return value of `i2c_smbus_write_word_data()` (which is 0 on success) instead of the value actually written to the register, so the integration time always read back as 0.040000 no matter the configuration. Another bug fixing patch.
+To learn the typical structure of an IIO driver I picked a fairly complete one: the CM3323 color sensor driver. While reviewing the code I found another bug, similar in spirit to the previous one: `data->reg_conf` was assigned the return value of `i2c_smbus_write_word_data()` (which is 0 on success) instead of the value actually written to the register, so the integration time always read back as 0.040000 no matter the configuration. Another bug-fixing patch.
 
 
 
-While looking at the changes in the latest patches to the subsystem, i noticed a pattern converting the probe error path to `dev_err_probe()`. This conversion taught me something conceptual about probing. When a probe fails to reach the hardware, it is not necessarily a hard failure: the driver may simply have started before its dependencies (controllers, GPIOs, and so on) were ready. `dev_err_probe()` handles exactly that case, deferring the probe instead of returning an immediate error, and it even simplified the code.
+While looking at the changes in the latest patches to the subsystem, I noticed a pattern converting the probe error path to `dev_err_probe()`. This conversion taught me something conceptual about probing. When a probe fails to reach the hardware, it is not necessarily a hard failure: the driver may simply have started before its dependencies (controllers, GPIOs, and so on) were ready. `dev_err_probe()` handles exactly that case, deferring the probe instead of returning an immediate error, and it even simplified the code.
 
-Since this change was more substantial than my previous ones, Shuah advised me to find a way to test it. The sensor turned out to be so old that it is out of production, so i couldn't buy one. That limitation became a lesson in itself: i discovered the **i2c-stub** technique, which let me simulate the I2C device and its registers on a Raspberry Pi 3B and actually test the patch. It was also my first **patch series**, with all the rules that come with submitting one.
+Since this change was more substantial than my previous ones, Shuah advised me to find a way to test it. The sensor turned out to be so old that it is out of production, so I couldn't buy one. That limitation became a lesson in itself: I discovered the **i2c-stub** technique, which let me simulate the I2C device and its registers on a Raspberry Pi 3B and actually test the patch. It was also my first **patch series**, with all the rules that come with submitting one.
 
 This is the whole i2c-stub trick:
 
@@ -193,22 +193,22 @@ cat /sys/bus/iio/devices/iio:device0/integration_time
 
 ## tcs3472: eight patches to close one TODO
 
-The last and biggest piece of work was an 8-patch series on the TCS3472 RGBC light and color sensor driver. The series fixes a pre-existing bug where the chip was not powered down on probe failure, converts the driver to *devm-*based resource management, modernizes the locking with `guard(mutex)`, applies a few style cleanups, and finally implements wait time support exposed through the `sampling_frequency` sysfs attribute, closing a long-standing TODO in the driver.
+The last and biggest piece of work was an 8-patch series on the TCS3472 RGBC light and color sensor driver. The series fixes a pre-existing bug where the chip was not powered down on probe failure, converts the driver to `devm_*`-based resource management, modernizes the locking with `guard(mutex)`, applies a few style cleanups, and finally implements wait time support exposed through the `sampling_frequency` sysfs attribute, closing a long-standing TODO in the driver.
 
 What this series really taught me is the value of **preparatory patches**. They are not just cosmetic cleanups: they respect the principle of minimal change and structure the series so that the real functional change at the end is easier to understand, review and accept. Several rounds of feedback from the maintainer and the main reviewers forced me to reorganize the series multiple times, and every round made it more disciplined (and longer!).
 
-A few individual lessons i took away:
+A few individual lessons I took away:
 
 - `guard(mutex)` removes the need for manual unlocks on every return path and eliminates `goto`-based cleanup, making the control flow much clearer;
 - the `devm_*` APIs let the kernel core release resources automatically at cleanup time, and `devm_add_action_or_reset()` can register a custom power-down action, so the sensor is always left in a safe state even when probe fails;
 - reading the datasheet in depth pays off. Implementing the wait time feature meant translating a real hardware capability (reducing power consumption between acquisitions) into a clean userspace interface, controlled by nothing more than the sampling frequency parameter.
 
-This time i tested everything on real hardware: an Adafruit TCS3472 breakout that i bought and wired to my Raspberry Pi 3B on I2C-1. Manually creating the I2C device, binding the driver to it, verifying the binding, exercising the driver's event functionality: that hands-on part is where the driver really "clicked" for me. And honestly, this is the kind of kernel work i enjoy most: turning what a datasheet promises into a clean software interface.
+This time I tested everything on real hardware: an Adafruit TCS3472 breakout that I bought and wired to my Raspberry Pi 3B on I2C-1. Manually creating the I2C device, binding the driver to it, verifying the binding, exercising the driver's event functionality: that hands-on part is where the driver really "clicked" for me. And honestly, this is the kind of kernel work I enjoy most: turning what a datasheet promises into a clean software interface.
 
 The commands that shaped this series deserve a bit more space, because this is where the real testing happened. First, the research and development side:
 
 ```bash
-# How does the subsystem already use the pattern i want to apply?
+# How does the subsystem already use the pattern I want to apply?
 git grep -n -B2 -A5 "guard(mutex)" drivers/iio/light/
 git log -S "guard(mutex)" --oneline -- drivers/iio/light/   # complete conversions to imitate
 
@@ -218,7 +218,7 @@ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- M=drivers/iio/light/ modules
 scp drivers/iio/light/tcs3472.ko aldo-rpi:/tmp/
 ```
 
-Then the bring-up on the Raspberry Pi. This cycle ran dozens of times, once for every iteration of every patch (and for a series, each patch must be tested at its own):
+Then the bring-up on the Raspberry Pi. This cycle ran dozens of times, once for every iteration of every patch (and for a series, each patch must be tested on its own):
 
 ```bash
 # Is the sensor really on the bus?
@@ -233,7 +233,7 @@ echo "tcs3472 0x29" | sudo tee /sys/bus/i2c/devices/i2c-1/new_device   # trigger
 sudo dmesg | tail -5                 # did the probe succeed?
 ```
 
-Once the driver is bound, sysfs is the playground. The trick i used the most: comparing what the driver reports (`cat` goes through `read_raw()`) with what the chip actually contains (`i2cget` bypasses the driver), to check that the driver's cache is consistent with the hardware:
+Once the driver is bound, sysfs is the playground. The trick I used the most: comparing what the driver reports (`cat` goes through `read_raw()`) with what the chip actually contains (`i2cget` bypasses the driver), to check that the driver's cache is consistent with the hardware:
 
 ```bash
 cd /sys/bus/iio/devices/iio:device0/
@@ -268,10 +268,10 @@ git format-patch -8 --cover-letter -o /tmp/series/
 git send-email --to=... --cc=... /tmp/series/*.patch      # git preserves order and threading
 ```
 
-## What i take away
+## What I take away
 
 By the end of the program, my patches had landed in mainline. The complete set, with the full diffs, is available in [my GitHub fork](https://github.com/aldocontelk/linux-upstream/tree/github_master).
 
 This mentorship turned my desire to contribute to the Linux kernel into something practical and effective. The discussions with the mentors and the other mentees showed me their workflows and improved mine, taught me how to collaborate with developers from all over the world, and showed me how much care goes into an open source project that has kept improving for years thanks only to emails.
 
-It has been an invaluable experience, and i am grateful to have been part of it. If you are thinking about applying: do it, take the pre-course seriously, and get ready to work hard because this will help you make truly unexpected progress.
+It has been an invaluable experience, and I am grateful to have been part of it. If you are thinking about applying: do it, take the pre-course seriously, and get ready to work hard because this will help you make truly unexpected progress.
